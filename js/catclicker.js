@@ -176,6 +176,7 @@ $(function() {
       this.$imageUrlInput = $('#image-input');
       this.$clickCountInput = $('#clickcount-input');
       this.$submitButton = $('#submit-button');
+      this.$cancelButton = $('#cancel-button');
       //this.catFocusTemplate = $('script[data-template="catfocus"]').html();
 
         if (octopus.isAdmin()) {
@@ -223,6 +224,16 @@ $(function() {
         //octopus.toggleAdminMode();
 
       });
+
+      // Delegated event to listen for removal clicks
+      this.$cancelButton.on('click', function(e) {
+        //console.log(this.$nameInput);
+        console.log("admin cancel clicked");
+        //console.log($('#catname-input'));
+        e.preventDefault();
+        octopus.toggleAdminMode();
+      });
+
 
 
       this.render();
