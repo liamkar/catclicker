@@ -5,6 +5,7 @@ $(function() {
       this.name = name;
       this.clickCount = 0;
       this.id = id;
+      this.imageUrl = "cat"+id;
     }
 
     increaseClick() {
@@ -45,6 +46,7 @@ $(function() {
       let clickedCat = data.cats.get("" + cat.id);
       data.selectedCat = cat.id;
       catFocusView.render(clickedCat);
+      catAdminView.render();
     },
 
     getSelectedCat: function() {
@@ -125,6 +127,9 @@ $(function() {
         cat.increaseClick();
         let clickCount = cat.getClickCount();
         $("#clickCount").text(clickCount);
+        //if (octopus.isAdmin()) {
+        $("#clickcount-input").val(clickCount);
+        //}
       });
 
       this.render(octopus.getSelectedCat());
@@ -155,8 +160,8 @@ $(function() {
       this.$catAdmin = $('#admin');
       this.$catAdminForm = $('#admin-form');
       this.$nameInput = $('#catname-input');
-      this.$imageurlInput = $('#image-input');
-      this.$clickcountinput = $('#clickcount-input');
+      this.$imageUrlInput = $('#image-input');
+      this.$clickCountInput = $('#clickcount-input');
       //this.catFocusTemplate = $('script[data-template="catfocus"]').html();
 
         if (octopus.isAdmin()) {
@@ -188,9 +193,16 @@ $(function() {
 
     render: function() {
         if (octopus.isAdmin()) {
+
+          this.$nameInput.html('');
+          this.$imageUrlInput.html('');
+          this.$clickCountInput.html('');
           let selectedCat = octopus.getSelectedCat();
           console.log(this.$nameInput);
           this.$nameInput.val(selectedCat.name);
+          this.$imageUrlInput.val(selectedCat.imageUrl);
+          console.log("click count at admin render:"+selectedCat.clickCount);
+          this.$clickCountInput.val(selectedCat.clickCount);
 
           this.$catAdminForm.show();
           console.log("render admin mode");
