@@ -1,0 +1,27 @@
+<HTML>
+<HEAD>
+<TITLE>Cat clicker</TITLE>
+</HEAD>
+<BODY BGCOLOR="FFFFFF">
+  
+<section>
+  <ul class="cat-list"></ul>
+<script type="text/template" data-template="catlist">
+    <li class="catItem" data-id="{{id}}">
+        {{name}}
+    </li>
+</script>
+</section>
+
+<section id="cat-focus">
+  <script type="text/template" data-template="catfocus">
+      <span>{{name}}</span>
+      <IMG id ="catfocusimage" data-id="{{id}}" SRC="images/cat{{id}}.jpg"/>
+      <span>Number of times image has been clicked:<b id="clickCount">{{clickCount}}</b></span>
+  </script>
+</section>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="js/catclicker.js"></script>
+</BODY>
+</HTML>
