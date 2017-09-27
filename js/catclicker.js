@@ -71,7 +71,8 @@ let octopus = {
         },
 
         render: function() {
-            // Cache vars for use in forEach() callback (performance)
+            //TODO:maybe not needed
+            //Cache vars for use in forEach() callback (performance)
             let $catList = this.$catList,
                 catListTemplate = this.catListTemplate;
 
@@ -99,6 +100,7 @@ let catFocusView = {
 
         // Delegated event to listen for removal clicks
         this.$catFocus.on('click', '#catfocusimage', function(e) {
+            //TODO:it would be better to refa this info to model. Store currently selected id in model, not in html-view?
             let catId = $(this).data();
             let cat = octopus.getCat(""+catId.id);
             //TODO: is this against the rule: view should not access model-
@@ -109,7 +111,7 @@ let catFocusView = {
     },
 
     render: function(cat) {
-
+       //TODO:maybe not needed
         let $catFocus = this.$catFocus,
             catFocusTemplate = this.catFocusTemplate;
 
@@ -120,6 +122,7 @@ let catFocusView = {
         let thisTemplate = catFocusTemplate.replace(/{{id}}/g, cat.id);
         thisTemplate = thisTemplate.replace(/{{name}}/g, cat.name);
         thisTemplate = thisTemplate.replace(/{{clickCount}}/g, cat.clickCount);
+        //TODO:redraws whole html section every time. could this be done more precisely..
         $catFocus.append(thisTemplate);
     }
 };
