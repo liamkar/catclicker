@@ -154,6 +154,9 @@ $(function() {
       // grab elements and html for using in the render function
       this.$catAdmin = $('#admin');
       this.$catAdminForm = $('#admin-form');
+      this.$nameInput = $('#catname-input');
+      this.$imageurlInput = $('#image-input');
+      this.$clickcountinput = $('#clickcount-input');
       //this.catFocusTemplate = $('script[data-template="catfocus"]').html();
 
         if (octopus.isAdmin()) {
@@ -185,6 +188,10 @@ $(function() {
 
     render: function() {
         if (octopus.isAdmin()) {
+          let selectedCat = octopus.getSelectedCat();
+          console.log(this.$nameInput);
+          this.$nameInput.val(selectedCat.name);
+
           this.$catAdminForm.show();
           console.log("render admin mode");
         }
