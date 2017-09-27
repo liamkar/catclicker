@@ -5,7 +5,7 @@ $(function() {
       this.name = name;
       this.clickCount = 0;
       this.id = id;
-      this.imageUrl = "cat"+id;
+      this.imageUrl = "images/cat"+id;
     }
 
     increaseClick() {
@@ -157,6 +157,7 @@ $(function() {
       console.log("selected cat:"+data.selectedCat);
       //TODO:replacing looks too complicated...
       let thisTemplate = catFocusTemplate.replace(/{{id}}/g, cat.id);
+      thisTemplate = thisTemplate.replace(/{{imageUrl}}/g, cat.imageUrl);
       thisTemplate = thisTemplate.replace(/{{name}}/g, cat.name);
       thisTemplate = thisTemplate.replace(/{{clickCount}}/g, cat.clickCount);
       //TODO:redraws whole html section every time. could this be done more precisely..
