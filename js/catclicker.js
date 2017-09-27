@@ -54,6 +54,18 @@ $(function() {
       return data.cats.get(""+data.selectedCat);
     },
 
+    updateSelectedCat: function(name, imageUrl, clickCount) {
+      let selectedCat = this.getSelectedCat();
+      console.log("submitted name:"+name);
+      selectedCat.name = name;
+      selectedCat.imageUrl = imageUrl;
+      selectedCat.clickCount = parseInt(clickCount);
+      //practically hides admin view
+      this.toggleAdminMode();
+      catListView.render();
+      catFocusView.render(selectedCat);
+    },
+
     isAdmin: function() {
       return data.admin;
     },
@@ -162,6 +174,7 @@ $(function() {
       this.$nameInput = $('#catname-input');
       this.$imageUrlInput = $('#image-input');
       this.$clickCountInput = $('#clickcount-input');
+      this.$submitButton = $('#submit-button');
       //this.catFocusTemplate = $('script[data-template="catfocus"]').html();
 
         if (octopus.isAdmin()) {
@@ -188,6 +201,29 @@ $(function() {
         octopus.toggleAdminMode();
 
       });
+
+      //this.$nameInput = 1;
+
+      // Delegated event to listen for removal clicks
+      this.$submitButton.on('click', function(e) {
+        //console.log(this.$nameInput);
+        console.log("admin submit clicked");
+        //console.log($('#catname-input'));
+        e.preventDefault();
+        octopus.updateSelectedCat($('#catname-input').val(),$('#image-input').val(),$('#clickcount-input').val() );
+
+/*
+        this.$nameInput = $('#catname-input');
+        this.$imageUrlInput = $('#image-input');
+        this.$clickCountInput = $('#clickcount-input');
+*/
+
+
+        //octopus.toggleAdminMode();
+
+      });
+
+
       this.render();
     },
 
@@ -200,6 +236,7 @@ $(function() {
           let selectedCat = octopus.getSelectedCat();
           console.log(this.$nameInput);
           this.$nameInput.val(selectedCat.name);
+          console.log(this.$nameInput);
           this.$imageUrlInput.val(selectedCat.imageUrl);
           console.log("click count at admin render:"+selectedCat.clickCount);
           this.$clickCountInput.val(selectedCat.clickCount);
