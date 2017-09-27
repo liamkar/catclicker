@@ -18,7 +18,8 @@ $(function() {
 
   let data = {
     cats: undefined,
-    admin: false
+    admin: false,
+    selectedCat: 1
   }
 
   let octopus = {
@@ -42,7 +43,13 @@ $(function() {
 
     openCat: function(cat) {
       let clickedCat = data.cats.get("" + cat.id);
+      data.selectedCat = cat.id;
       catFocusView.render(clickedCat);
+    },
+
+    getSelectedCat: function() {
+      console.log(data.selectedCat);
+      return data.cats.get(""+data.selectedCat);
     },
 
     isAdmin: function() {
@@ -119,6 +126,8 @@ $(function() {
         let clickCount = cat.getClickCount();
         $("#clickCount").text(clickCount);
       });
+
+      this.render(octopus.getSelectedCat());
     },
 
     render: function(cat) {
@@ -128,7 +137,7 @@ $(function() {
 
       // Clear and render
       $catFocus.html('');
-
+      console.log("selected cat:"+data.selectedCat);
       //TODO:replacing looks too complicated...
       let thisTemplate = catFocusTemplate.replace(/{{id}}/g, cat.id);
       thisTemplate = thisTemplate.replace(/{{name}}/g, cat.name);
@@ -137,7 +146,6 @@ $(function() {
       $catFocus.append(thisTemplate);
     }
   };
-
 
   let catAdminView = {
 
@@ -155,7 +163,6 @@ $(function() {
         else {
           console.log("app is not in admin mode");
         }
-
 
       // Delegated event to listen for removal clicks
       this.$catAdmin.on('click', function(e) {
@@ -203,14 +210,6 @@ $(function() {
     }
 
   };
-
-
-
-
-
-
-
-
 
   octopus.init();
 }());
