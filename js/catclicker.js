@@ -145,6 +145,7 @@ $(function() {
 
       // grab elements and html for using in the render function
       this.$catAdmin = $('#admin');
+      this.$catAdminForm = $('#admin-form');
       //this.catFocusTemplate = $('script[data-template="catfocus"]').html();
 
         if (octopus.isAdmin()) {
@@ -170,15 +171,18 @@ $(function() {
         */
         console.log("admin clicked");
         octopus.toggleAdminMode();
-      });
 
+      });
+      this.render();
     },
 
     render: function() {
         if (octopus.isAdmin()) {
+          this.$catAdminForm.show();
           console.log("render admin mode");
         }
         else{
+          this.$catAdminForm.hide();
           console.log("render not admin mode");
         }
       /*

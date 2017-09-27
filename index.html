@@ -4,8 +4,6 @@
 </HEAD>
 <BODY BGCOLOR="FFFFFF">
 
-<button id="admin">Admin</button>
-
 <section>
   <ul class="cat-list"></ul>
 <script type="text/template" data-template="catlist">
@@ -21,6 +19,20 @@
       <IMG id ="catfocusimage" data-id="{{id}}" SRC="images/cat{{id}}.jpg"/>
       <span>Number of times image has been clicked:<b id="clickCount">{{clickCount}}</b></span>
   </script>
+</section>
+
+<br/>
+<button id="admin">Admin</button>
+<section id="admin-form">
+<form>
+  Name:<br>
+  <input type="text" name="catname"><br>
+  Image url:<br>
+  <input type="text" name="imageurl"><br><br>
+  # clicks:<br>
+  <input type="text" name="clickCount"><br><br>
+  <input type="submit" value="Submit">
+</form>
 </section>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
