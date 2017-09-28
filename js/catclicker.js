@@ -5,7 +5,7 @@ $(function() {
       this.name = name;
       this.clickCount = 0;
       this.id = id;
-      this.imageUrl = "images/cat"+id;
+      this.imageUrl = "images/cat" + id;
     }
 
     increaseClick() {
@@ -50,13 +50,11 @@ $(function() {
     },
 
     getSelectedCat: function() {
-      console.log(data.selectedCat);
-      return data.cats.get(""+data.selectedCat);
+      return data.cats.get("" + data.selectedCat);
     },
 
     updateSelectedCat: function(name, imageUrl, clickCount) {
       let selectedCat = this.getSelectedCat();
-      console.log("submitted name:"+name);
       selectedCat.name = name;
       selectedCat.imageUrl = imageUrl;
       selectedCat.clickCount = parseInt(clickCount);
@@ -139,9 +137,7 @@ $(function() {
         cat.increaseClick();
         let clickCount = cat.getClickCount();
         $("#clickCount").text(clickCount);
-        //if (octopus.isAdmin()) {
         $("#clickcount-input").val(clickCount);
-        //}
       });
 
       this.render(octopus.getSelectedCat());
@@ -154,7 +150,7 @@ $(function() {
 
       // Clear and render
       $catFocus.html('');
-      console.log("selected cat:"+data.selectedCat);
+      console.log("selected cat:" + data.selectedCat);
       //TODO:replacing looks too complicated...
       let thisTemplate = catFocusTemplate.replace(/{{id}}/g, cat.id);
       thisTemplate = thisTemplate.replace(/{{imageUrl}}/g, cat.imageUrl);
@@ -177,106 +173,43 @@ $(function() {
       this.$clickCountInput = $('#clickcount-input');
       this.$submitButton = $('#submit-button');
       this.$cancelButton = $('#cancel-button');
-      //this.catFocusTemplate = $('script[data-template="catfocus"]').html();
-
-        if (octopus.isAdmin()) {
-            console.log("app is in admin mode");
-        }
-
-        else {
-          console.log("app is not in admin mode");
-        }
 
       // Delegated event to listen for removal clicks
       this.$catAdmin.on('click', function(e) {
-
-        /*
-        //TODO:it would be better to refa this info to model. Store currently selected id in model, not in html-view?
-        let catId = $(this).data();
-        let cat = octopus.getCat("" + catId.id);
-        //TODO: is this against the rule: view should not access model-
-        cat.increaseClick();
-        let clickCount = cat.getClickCount();
-        $("#clickCount").text(clickCount);
-        */
-        console.log("admin clicked");
         octopus.toggleAdminMode();
-
       });
-
-      //this.$nameInput = 1;
 
       // Delegated event to listen for removal clicks
       this.$submitButton.on('click', function(e) {
-        //console.log(this.$nameInput);
-        console.log("admin submit clicked");
-        //console.log($('#catname-input'));
         e.preventDefault();
-        octopus.updateSelectedCat($('#catname-input').val(),$('#image-input').val(),$('#clickcount-input').val() );
-
-/*
-        this.$nameInput = $('#catname-input');
-        this.$imageUrlInput = $('#image-input');
-        this.$clickCountInput = $('#clickcount-input');
-*/
-
-
-        //octopus.toggleAdminMode();
-
+        octopus.updateSelectedCat($('#catname-input').val(), $('#image-input').val(), $('#clickcount-input').val());
       });
 
       // Delegated event to listen for removal clicks
       this.$cancelButton.on('click', function(e) {
-        //console.log(this.$nameInput);
-        console.log("admin cancel clicked");
-        //console.log($('#catname-input'));
         e.preventDefault();
         octopus.toggleAdminMode();
       });
-
-
 
       this.render();
     },
 
     render: function() {
-        if (octopus.isAdmin()) {
+      if (octopus.isAdmin()) {
 
-          this.$nameInput.html('');
-          this.$imageUrlInput.html('');
-          this.$clickCountInput.html('');
-          let selectedCat = octopus.getSelectedCat();
-          console.log(this.$nameInput);
-          this.$nameInput.val(selectedCat.name);
-          console.log(this.$nameInput);
-          this.$imageUrlInput.val(selectedCat.imageUrl);
-          console.log("click count at admin render:"+selectedCat.clickCount);
-          this.$clickCountInput.val(selectedCat.clickCount);
+        this.$nameInput.html('');
+        this.$imageUrlInput.html('');
+        this.$clickCountInput.html('');
+        let selectedCat = octopus.getSelectedCat();
+        this.$nameInput.val(selectedCat.name);
+        this.$imageUrlInput.val(selectedCat.imageUrl);
+        this.$clickCountInput.val(selectedCat.clickCount);
+        this.$catAdminForm.show();
 
-          this.$catAdminForm.show();
-          console.log("render admin mode");
-        }
-        else{
-          this.$catAdminForm.hide();
-          console.log("render not admin mode");
-        }
-      /*
-      //TODO:maybe not needed
-      let $catFocus = this.$catFocus,
-        catFocusTemplate = this.catFocusTemplate;
-
-      // Clear and render
-      $catFocus.html('');
-
-      //TODO:replacing looks too complicated...
-      let thisTemplate = catFocusTemplate.replace(/{{id}}/g, cat.id);
-      thisTemplate = thisTemplate.replace(/{{name}}/g, cat.name);
-      thisTemplate = thisTemplate.replace(/{{clickCount}}/g, cat.clickCount);
-      //TODO:redraws whole html section every time. could this be done more precisely..
-      $catFocus.append(thisTemplate);
-      */
+      } else {
+        this.$catAdminForm.hide();
+      }
     }
-
   };
 
   octopus.init();
