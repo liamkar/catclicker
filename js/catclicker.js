@@ -193,7 +193,7 @@ $(function() {
 
       this.render();
     },
-
+    
     render: function() {
       if (octopus.isAdmin()) {
 
